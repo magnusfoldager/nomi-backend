@@ -8,9 +8,9 @@
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon index.ts --ignore 'db.json'",
-    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.ts"
+    "build": "rimraf dist && tsc",
+    "start": "cross-env NODE_ENV=production node dist/index.js"
   },
   "devDependencies": {
     "@types/express": "^5.0.5",
@@ -20,10 +20,12 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
     "express": "^5.1.0",
     "lowdb": "^7.0.1",
     "node-cron": "^4.2.1",
     "openai": "^6.8.1",
+    "rimraf": "^6.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "zod": "^4.1.12"

@@ -1,7 +1,7 @@
 import {
   type TravelerDailyState,
   getDefaultTravelerState,
-} from "./travelerState.ts";
+} from "./travelerState.js";
 import { JSONFilePreset } from "lowdb/node";
 
 const defaultTravelerState = getDefaultTravelerState();

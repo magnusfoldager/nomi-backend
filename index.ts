@@ -1,5 +1,5 @@
 import express, { type Request, type Response } from "express";
-import { db } from "./db.ts";
+import { db } from "./db.js";
 import "dotenv/config";
 
 const app = express();
@@ -8,11 +8,11 @@ const port = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-import getRecommendations from "./recommendations.ts";
+import getRecommendations from "./recommendations.js";
 import cron from "node-cron";
-import checkForFlights from "./flights.ts";
-import checkForHotels from "./hotels.ts";
-import { updateUserString } from "./userInput.ts";
+import checkForFlights from "./flights.js";
+import checkForHotels from "./hotels.js";
+import { updateUserString } from "./userInput.js";
 
 cron.schedule("* * * * *", () => {
   checkForFlights()

@@ -1,5 +1,5 @@
-import { db } from "./db.ts";
-import getTravelerState from "./travelerState.ts";
+import { db } from "./db.js";
+import getTravelerState from "./travelerState.js";
 
 const recommendationTypes = ["food", "attraction", "hotel"];
 

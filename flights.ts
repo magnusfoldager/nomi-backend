@@ -1,7 +1,7 @@
-import client, { ACI_MCP } from "./openai.ts";
+import client, { ACI_MCP } from "./openai.js";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
-import { db } from "./db.ts";
+import { db } from "./db.js";
 
 async function checkForFlights() {
   const formatSchema = z.object({

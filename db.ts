@@ -39,6 +39,7 @@ const dbTemplate = {
     roomType: string;
     numberOfNights: string;
   }[],
+  memories: [] as string[],
 };
 
 export type DbType = typeof dbTemplate;

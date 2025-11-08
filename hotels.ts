@@ -18,7 +18,7 @@ async function checkForHotels() {
           numberOfNights: z.string(),
         })
       )
-      .optional()
+      .optional().nullable()
       .default([]),
   });
 

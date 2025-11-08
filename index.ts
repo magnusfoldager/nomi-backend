@@ -2,6 +2,7 @@ import express, { type Request, type Response } from "express";
 import cors from "cors";
 import { db } from "./db.js";
 import "dotenv/config";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -16,6 +17,7 @@ import checkForFlights from "./flights.js";
 import checkForHotels from "./hotels.js";
 import { updateUserString } from "./userInput.js";
 import { generateRecommendations } from "./generateRecommendations.js";
+import { handleChatStream } from "./chat.js";
 
 cron.schedule("* * * * *", () => {
   checkForFlights()
@@ -151,6 +153,33 @@ app.post(
     }
   }
 );
+
+app.post("/chat", async (req: Request<{}, {}, { message: string }>, res: Response) => {
+  try {
+    const { message } = req.body;
+
+    if (!message) {
+      res.status(400).json({ error: "Message is required" });
+      return;
+    }
+
+    // Set headers for Server-Sent Events (SSE)
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+
+    await handleChatStream(message, res);
+
+  } catch (error) {
+    console.error("Error in chat endpoint:", error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Failed to process chat message" });
+    } else {
+      res.write(`data: ${JSON.stringify({ error: "Stream error occurred" })}\n\n`);
+      res.end();
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`Nomi Backend listening on ${port}`);

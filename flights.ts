@@ -20,7 +20,7 @@ async function checkForFlights() {
           flightTerminal: z.string(),
         })
       )
-      .optional()
+      .optional().nullable()
       .default([]),
   });
 

@@ -50,10 +50,7 @@ app.get(
 
 app.get("/flights", (req: Request, res: Response) => {
   try {
-    const flightsData = {
-      foundFlights: (db.data as any).flights?.length > 0 || false,
-      flights: (db.data as any).flights || [],
-    };
+    const flightsData = (db.data as any).flights || [];
     res.json(flightsData);
   } catch (error) {
     console.error("Error fetching flights:", error);
@@ -63,6 +60,16 @@ app.get("/flights", (req: Request, res: Response) => {
 
 app.get("/backoffice", (req: Request, res: Response) => {
   res.sendFile("./backoffice.html", { root: "." });
+});
+
+app.get("/hotels", (req: Request, res: Response) => {
+  try {
+    const hotelsData = (db.data as any).hotels || [];
+    res.json(hotelsData);
+  } catch (error) {
+    console.error("Error fetching hotels:", error);
+    res.status(500).json({ error: "Failed to fetch hotels" });
+  }
 });
 
 interface UpdateParametersBody {

@@ -64,7 +64,38 @@ export interface TravelerDailyState {
   patience: number;
 }
 
-//TODO: Implement GPT logic for estimating traveler state
+export function llmGetTravelerStatePrompt(recentActivities: string): string {
+  return `
+  You are an expert travel assistant AI. Based on the traveler's recent activities, preferences, and context, provide an updated assessment of their current TravelerDailyState.
+
+  Respond in JSON format with the following fields AND NOTHING ELSE, each normalized from 0.0 to 1.0:
+  - tiredness
+  - hunger
+  - sociability
+  - adventurousness
+  - curiosity
+  - stressLevel
+  - spendingWillingness
+  - safetyFeeling
+  - spontaneity
+  - patience
+
+  e.g. {
+    "tiredness": 0.5,
+    "hunger": 0.3,
+    "sociability": 0.7,
+    "adventurousness": 0.6,
+    "curiosity": 0.8,
+    "stressLevel": 0.4,
+    "spendingWillingness": 0.5,
+    "safetyFeeling": 0.9,
+    "spontaneity": 0.6,
+    "patience": 0.7
+  }
+
+  Ensure the values accurately reflect the traveler's current state.
+  `;
+}
 
 export default function getTravelerState(): TravelerDailyState {
   return {
@@ -78,5 +109,20 @@ export default function getTravelerState(): TravelerDailyState {
     safetyFeeling: 0.9,
     spontaneity: 0.6,
     patience: 0.7
+  };
+}
+
+export function getDefaultTravelerState(): TravelerDailyState {
+  return {
+    tiredness: 0.5,
+    hunger: 0.5,
+    sociability: 0.5,
+    adventurousness: 0.5,
+    curiosity: 0.5,
+    stressLevel: 0.5,
+    spendingWillingness: 0.5,
+    safetyFeeling: 0.5,
+    spontaneity: 0.5,
+    patience: 0.5
   };
 }

@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { type Request, type Response } from 'express';
 
 const app = express()
 const port = 3000
@@ -15,6 +15,10 @@ app.get('/', (req: any, res: { send: (arg0: string) => void }) => {
 app.get('/recommendations', (req: any, res: { json: (arg0: { id: number; title: string; type: string }[]) => void }) => {
   const recommendations = getRecommendations()
   res.json(recommendations)
+})
+
+app.get('/backoffice', (req: Request, res: Response) => {
+  res.sendFile('./backoffice.html', { root: '.' })
 })
 
 interface UpdateParametersBody {

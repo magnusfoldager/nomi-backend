@@ -5,7 +5,8 @@ const defaultTravelerState = getDefaultTravelerState();
 
 const dbTemplate = {
     travelerState: defaultTravelerState,
-    recommendations: [] as { id: number; title: string; type: string }[]
+    recommendations: [] as { id: number; title: string; type: string }[],
+    userInputString: "",
 }
 
 export type DbType = typeof dbTemplate

@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from 'express';
+import { db } from "./db.ts";
 
 const app = express()
 const port = 3000
@@ -7,6 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 import getRecommendations from './recommendations.ts'
+import { updateUserString } from './userInput.ts';
 
 app.get('/', (req: any, res: { send: (arg0: string) => void }) => {
   res.send('NOMI!')
@@ -53,6 +55,21 @@ app.post('/update-server-parameters', (req: Request<{}, {}, UpdateParametersBody
     } catch (error) {
         console.error('Error processing request:', error);
         res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('set-user-input-string', (req: Request<{}, {}, { userInputString: string }>, res: Response) => {
+    try {
+        const { userInputString } = req.body;
+        
+        if (userInputString) {
+          updateUserString(userInputString);
+
+          res.json({ status: 'success', message: 'User input string updated.' });
+        }
+    } catch (error) {
+        console.error('Error processing request:', error);
+        res.status(500).json({ status: 'error', message: 'Internal Server Error' });
     }
 });
 

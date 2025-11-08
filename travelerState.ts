@@ -94,22 +94,15 @@ export function llmGetTravelerStatePrompt(recentActivities: string): string {
   }
 
   Ensure the values accurately reflect the traveler's current state.
+
+  --------------- START RECENT ACTIVITIES ---------------
+  ${recentActivities}
+  --------------- END RECENT ACTIVITIES ---------------
   `;
 }
 
 export default function getTravelerState(): TravelerDailyState {
-  return {
-    tiredness: 0.5,
-    hunger: 0.3,
-    sociability: 0.7,
-    adventurousness: 0.6,
-    curiosity: 0.8,
-    stressLevel: 0.4,
-    spendingWillingness: 0.5,
-    safetyFeeling: 0.9,
-    spontaneity: 0.6,
-    patience: 0.7
-  };
+  return getDefaultTravelerState();
 }
 
 export function getDefaultTravelerState(): TravelerDailyState {

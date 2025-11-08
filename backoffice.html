@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0
+">
+
+
+    <title>Backoffice - Nomi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Backoffice - Nomi</h1>
+    <p>Welcome to the backoffice of Nomi. Here you can manage your application settings and data.</p>
+
+    <form action="/update-server-parameters" method="post">
+        <label for="time">Time</label>
+        <input type="text" id="time" name="time"><br><br>
+
+        <label for="location">Location</label>
+        <!-- Dropdown select Tokyo, Kyoto, Okinawa with lat/long as values -->
+        <select id="location" name="location">
+            <option value="35.6895,139.6917">Tokyo</option>
+            <option value="35.0116,135.7681">Kyoto</option>
+            <option value="26.2124,127.6809">Okinawa</option>
+        </select><br><br>
+
+        <input type="submit" value="Update Settings">
+    </form>
+</body>

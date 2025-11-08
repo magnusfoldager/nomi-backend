@@ -45,14 +45,21 @@ app.get('/recommendations', (req: any, res: { json: (arg0: { id: number; title: 
 
 app.get('/flights', (req: Request, res: Response) => {
   try {
-    const flightsData = {
-      foundFlights: db.data.foundFlights,
-      flight: db.data.flight
-    };
+    const flightsData = db.data.flights;
     res.json(flightsData);
   } catch (error) {
     console.error('Error fetching flights:', error);
     res.status(500).json({ error: 'Failed to fetch flights' });
+  }
+})
+
+app.get('/hotels', (req: Request, res: Response) => {
+  try {
+    const hotelsData = db.data.hotels;
+    res.json(hotelsData);
+  } catch (error) {
+    console.error('Error fetching hotels:', error);
+    res.status(500).json({ error: 'Failed to fetch hotels' });
   }
 })
 

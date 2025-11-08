@@ -2,7 +2,6 @@ import express from "express";
 import type { Request, Response } from "express";
 
 import 'dotenv/config'
-console.log(process.env["OPENAI_API_KEY"]);
 
 const app = express()
 const port = 3000
@@ -13,9 +12,19 @@ app.use(express.json());
 import getRecommendations from "./recommendations.ts";
 import cron from "node-cron";
 import checkForFlights from "./flights.ts";
+import checkForHotels from "./hotels.ts";
 
 cron.schedule("* * * * *", () => {
   checkForFlights().then((found) => {
+    if (found) {
+      console.log("Flights found");
+    } else {
+      console.log("No flights found");
+    }
+  });
+});
+cron.schedule("* * * * *", () => {
+  checkForHotels().then((found) => {
     if (found) {
       console.log("Flights found");
     } else {

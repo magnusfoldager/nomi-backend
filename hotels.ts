@@ -25,6 +25,7 @@ async function checkForHotels() {
     instructions:
       "Your job is to use ACTIONS to check for hotel bookings. the tool call is called GMAIL__MESSAGES_LIST. You might not find the hotels, if you dont just return false for foundHotels. If you find the hotels, return the hotel in the hotel object.",
     tools: [ACI_MCP],
+    input: "try to find hotels in email",
     text: {
       format: zodTextFormat(formatSchema, "hotels"),
     },

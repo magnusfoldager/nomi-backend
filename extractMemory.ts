@@ -12,22 +12,28 @@ export async function extractMemory(userMessage: string, assistantResponse: stri
   try {
     const response = await client.responses.parse({
       model: "gpt-5",
-      instructions: `You are analyzing a conversation to determine if we learned something new and relevant about the user.
+      instructions: `You are analyzing a conversation to extract important information about the user that should be remembered for future interactions.
 
-Review the user's message and the assistant's response. Determine if there is any NEW information about the user that should be remembered for future conversations.
+Your goal is to be LIBERAL in saving memories. If there's ANY useful information about the user, save it.
 
-Things to remember:
-- Personal preferences (food, activities, travel style)
-- Important context about their trip or situation
-- Specific needs or constraints
-- Personal background or circumstances
+Things to ALWAYS remember:
+- Personal preferences (food, drinks, activities, hobbies, interests, dislikes)
+- Travel style and habits (budget preferences, how they like to explore, pace)
+- Dietary restrictions or allergies
+- Important context about their current trip or plans
+- Where they're from, where they're going, travel companions
+- Their job, schedule, or time constraints
+- Feelings, moods, or attitudes they express
+- Previous experiences they mention
+- Specific places they want to visit or avoid
+- Transportation preferences
+- Any goals or intentions they express
 
-Things NOT to remember:
-- Temporary states or one-time questions
-- General chitchat
-- Information already covered in existing memories
+Only skip saving if:
+- It's ALREADY in the existing memories (don't duplicate)
+- It's completely generic with no personal info (e.g., "What time is it?")
 
-Return hasNewMemory as true if there's something to remember, false otherwise. If hasNewMemory is true, provide the memory as a single clear, concise sentence.`,
+When you save a memory, write it as a clear, natural sentence in third person (e.g., "The user prefers spicy food" or "The user is traveling with their partner").`,
       input: `User message: "${userMessage}"\n\nAssistant response: "${assistantResponse}"\n\nExisting memories:\n${db.data.memories.map((m, i) => `${i + 1}. ${m}`).join('\n') || 'None yet'}`,
       text: {
         format: zodTextFormat(MemorySchema, "memory_extraction"),

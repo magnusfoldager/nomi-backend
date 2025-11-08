@@ -1,35 +1,12 @@
-import {
-  type TravelerDailyState,
-  getDefaultTravelerState,
-} from "./travelerState.ts";
-import { JSONFilePreset } from "lowdb/node";
+import { type TravelerDailyState, getDefaultTravelerState } from './travelerState';
+import { JSONFilePreset } from 'lowdb/node'
 
 const defaultTravelerState = getDefaultTravelerState();
 
 const dbTemplate = {
-  travelerState: defaultTravelerState,
-  recommendations: [] as { id: number; title: string; type: string }[],
-  flights: [] as {
-    airline: string;
-    flightNumber: string;
-    departure: string;
-    arrival: string;
-    departureTime: string;
-    arrivalTime: string;
-    bookingReference: string;
-    flightDuration: string;
-    flightTerminal: string;
-  }[],
-  hotels: [] as {
-    hotelName: string;
-    address: string;
-    checkIn: string;
-    checkOut: string;
-    bookingReference: string;
-    roomType: string;
-    numberOfNights: string;
-  }[],
-};
+    travelerState: defaultTravelerState,
+    recommendations: [] as { id: number; title: string; type: string }[]
+}
 
 export type DbType = typeof dbTemplate;
 

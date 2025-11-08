@@ -1,8 +1,26 @@
-# nomi-backend
+# Nomie
 
-# CHECK OUT DEPLOYED BUILD AT https://nomie.elliottf.dk/  
+## Check out the deployed version at https://nomie.elliottf.dk/ 
 
-Backend for the Nomi(e) app
+Nomie is a contextual and proactive travel buddy that helps you travel. The core idea is that Nomie would be your go to app for having an overview of what to do next. Did you just land after a long flight? Nomie will know that youre probably tired and hungry, and suggest you find a place to rest and get something to eat.
+
+# Key features
+
+## Context aware recommendations
+
+Nomie constantly keeps track of the weather, local news, your location, and intelligently guesses your mood based on chat history. It constantly uses this to reason about nice places to visit or great dinner locations. This will all automatically get surfaced in the dashboard in the app, meaning Nomie always shows you ultra relevant and context aware suggestions of thigns to do.
+
+## Pulls in context from a bunch of sources
+
+Nomie continusly keeps up with updates from your email and fetches relevant information like flight and hotel bookings. This info will be stored for future use as context when suggesting things to do
+
+## Your go to travel agent
+
+Nomie is also your personal travel agent, you can text nomie questions of what to do or just let her know your travel preferences. Nomie will remember your preferences or reviews of places, and use that in the future to further personalize the recommmendations. 
+
+# This repo
+
+## This repository contains the backend for the Nomie app
 
 [Frontend Repository (Lovable)](https://github.com/Ell1ott/nomie-voyage-palette-15345)
 

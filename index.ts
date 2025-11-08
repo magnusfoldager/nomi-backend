@@ -26,8 +26,6 @@ cron.schedule("* * * * *", () => {
     .catch((error) => {
       console.error("Error checking for flights:", error);
     });
-});
-cron.schedule("* * * * *", () => {
   checkForHotels()
     .then((found) => {
       if (found) {

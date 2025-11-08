@@ -27,7 +27,7 @@ async function checkForFlights() {
   const response = await client.responses.parse({
     model: "gpt-5",
     instructions:
-      "Your job is to use ACTIONS to check for flights to tokyo from SAS. the tool call is called GMAIL__MESSAGES_LIST. You might not find the flights, if you dont just return false for foundFlights. If you find the flights, return all flights in the flights array.",
+      "Your job is to use ACTIONS to check for flight bookings. the tool call is called GMAIL__MESSAGES_LIST. You might not find the flights, if you dont just return false for foundFlights. If you find the flights, return all flights in the flights array.",
     tools: [ACI_MCP],
     input: "try to find flights in user email",
     text: {

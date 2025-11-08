@@ -2,6 +2,8 @@
 
 Backend for the Nomi(e) app
 
+Deployed on https://nomi-backend.fly.dev/ for demo purposes.
+
 ## Quick start (local)
 1. Clone repository
     ```

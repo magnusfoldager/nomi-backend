@@ -39,6 +39,10 @@ cron.schedule("* * * * *", () => {
     });
 });
 
+updateUserString(
+  "Oooof.. I am feeling so tired and a little hungry."
+);
+
 app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
   res.send("NOMI!");
 });

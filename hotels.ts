@@ -37,12 +37,16 @@ async function checkForHotels() {
     return false;
   }
 
-  if (response.output_parsed.foundHotels && response.output_parsed.hotels && response.output_parsed.hotels.length > 0) {
+  if (
+    response.output_parsed.foundHotels &&
+    response.output_parsed.hotels &&
+    response.output_parsed.hotels.length > 0
+  ) {
     db.update((db) => {
       // Add new hotels, avoiding duplicates based on booking reference
-      const existingRefs = new Set(db.hotels.map(h => h.bookingReference));
+      const existingRefs = new Set(db.hotels.map((h) => h.bookingReference));
       const newHotels = response.output_parsed!.hotels!.filter(
-        hotel => !existingRefs.has(hotel.bookingReference)
+        (hotel) => !existingRefs.has(hotel.bookingReference)
       );
       db.hotels.push(...newHotels);
       return db;

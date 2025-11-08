@@ -39,12 +39,16 @@ async function checkForFlights() {
     return false;
   }
 
-  if (response.output_parsed.foundFlights && response.output_parsed.flights && response.output_parsed.flights.length > 0) {
+  if (
+    response.output_parsed.foundFlights &&
+    response.output_parsed.flights &&
+    response.output_parsed.flights.length > 0
+  ) {
     db.update((db) => {
       // Add new flights, avoiding duplicates based on booking reference
-      const existingRefs = new Set(db.flights.map(f => f.bookingReference));
+      const existingRefs = new Set(db.flights.map((f) => f.bookingReference));
       const newFlights = response.output_parsed!.flights!.filter(
-        flight => !existingRefs.has(flight.bookingReference)
+        (flight) => !existingRefs.has(flight.bookingReference)
       );
       db.flights.push(...newFlights);
       return db;

@@ -181,5 +181,5 @@ app.post("/chat", async (req: Request<{}, {}, { message: string }>, res: Respons
 });
 
 app.listen(port, () => {
-  console.log(`Nomi Backend listening on ${port}`);
+  console.log(`Nomi Backend listening on ${port}, check out the deployed build at https://nomie.elliottf.dk/`);
 });

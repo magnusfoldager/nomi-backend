@@ -180,6 +180,35 @@ app.post("/chat", async (req: Request<{}, {}, { message: string }>, res: Respons
   }
 });
 
+app.post("/clear", async (req: Request, res: Response) => {
+  try {
+    // Clear memories
+    db.data.memories = [];
+
+    // Reset traveler state to defaults
+    db.data.travelerState = {
+      tiredness: 0.3,
+      hunger: 0.2,
+      sociability: 0.5,
+      adventurousness: 0.7,
+      curiosity: 0.8,
+      stressLevel: 0.2,
+      spendingWillingness: 0.5,
+      safetyFeeling: 0.8,
+      spontaneity: 0.6,
+      patience: 0.7,
+    };
+
+    await db.write();
+
+    console.log("Cleared memories and reset traveler state");
+    res.json({ status: "success", message: "Memories and traveler state cleared" });
+  } catch (error) {
+    console.error("Error clearing data:", error);
+    res.status(500).json({ status: "error", message: "Failed to clear data" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Nomi Backend listening on ${port}, check out deployed build at https://nomie.elliottf.dk/`);
 });

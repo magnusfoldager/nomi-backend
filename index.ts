@@ -1,4 +1,5 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import type { Request, Response } from "express";
 
 import 'dotenv/config'
 console.log(process.env["OPENAI_API_KEY"]);

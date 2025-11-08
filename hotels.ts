@@ -10,8 +10,8 @@ async function checkForHotels() {
       .object({
         hotelName: z.string(),
         address: z.string(),
-        startDate: z.string(),
-        endDate: z.string(),
+        checkIn: z.string(),
+        checkOut: z.string(),
         bookingReference: z.string(),
         roomType: z.string(),
         numberOfNights: z.string(),

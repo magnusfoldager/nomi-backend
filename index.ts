@@ -13,6 +13,7 @@ import cron from "node-cron";
 import checkForFlights from "./flights.ts";
 import checkForHotels from "./hotels.ts";
 import { updateUserString } from "./userInput.ts";
+import { generateRecommendations } from "./generateRecommendations.ts";
 
 cron.schedule("* * * * *", () => {
   checkForFlights()
@@ -103,7 +104,12 @@ app.post(
           return;
         }
 
-        // TODO: Implement updating DB
+        // Generate recommendations asynchronously
+        generateRecommendations(latitude, longitude, time)
+          .then(() => console.log("Recommendations generated"))
+          .catch((error) =>
+            console.error("Error generating recommendations:", error)
+          );
       }
 
       // Send a success response to the browser

@@ -26,9 +26,9 @@ cron.schedule("* * * * *", () => {
 cron.schedule("* * * * *", () => {
   checkForHotels().then((found) => {
     if (found) {
-      console.log("Flights found");
+      console.log("Hotels found");
     } else {
-      console.log("No flights found");
+      console.log("No hotels found");
     }
   });
 });

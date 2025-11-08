@@ -9,8 +9,7 @@ const defaultTravelerState = getDefaultTravelerState();
 const dbTemplate = {
   travelerState: defaultTravelerState,
   recommendations: [] as { id: number; title: string; type: string }[],
-  foundFlights: false,
-  flight: null as {
+  flights: [] as {
     airline: string;
     flightNumber: string;
     departure: string;
@@ -20,9 +19,8 @@ const dbTemplate = {
     bookingReference: string;
     flightDuration: string;
     flightTerminal: string;
-  } | null,
-  foundHotels: false,
-  hotel: null as {
+  }[],
+  hotels: [] as {
     hotelName: string;
     address: string;
     checkIn: string;
@@ -30,7 +28,7 @@ const dbTemplate = {
     bookingReference: string;
     roomType: string;
     numberOfNights: string;
-  } | null,
+  }[],
 };
 
 export type DbType = typeof dbTemplate;

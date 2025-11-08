@@ -15,22 +15,30 @@ import checkForHotels from "./hotels.ts";
 import { updateUserString } from "./userInput.ts";
 
 cron.schedule("* * * * *", () => {
-  checkForFlights().then((found) => {
-    if (found) {
-      console.log("Flights found");
-    } else {
-      console.log("No flights found");
-    }
-  });
+  checkForFlights()
+    .then((found) => {
+      if (found) {
+        console.log("Flights found");
+      } else {
+        console.log("No flights found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking for flights:", error);
+    });
 });
 cron.schedule("* * * * *", () => {
-  checkForHotels().then((found) => {
-    if (found) {
-      console.log("Hotels found");
-    } else {
-      console.log("No hotels found");
-    }
-  });
+  checkForHotels()
+    .then((found) => {
+      if (found) {
+        console.log("Hotels found");
+      } else {
+        console.log("No hotels found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking for hotels:", error);
+    });
 });
 
 app.get("/", (req: any, res: { send: (arg0: string) => void }) => {

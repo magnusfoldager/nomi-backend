@@ -10,10 +10,10 @@ app.use(express.json());
 
 import getRecommendations from "./recommendations.js";
 import cron from "node-cron";
-import checkForFlights from "./flights.ts";
-import checkForHotels from "./hotels.ts";
-import { updateUserString } from "./userInput.ts";
-import { generateRecommendations } from "./generateRecommendations.ts";
+import checkForFlights from "./flights.js";
+import checkForHotels from "./hotels.js";
+import { updateUserString } from "./userInput.js";
+import { generateRecommendations } from "./generateRecommendations.js";
 
 cron.schedule("* * * * *", () => {
   checkForFlights()

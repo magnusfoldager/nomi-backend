@@ -1,5 +1,7 @@
 # nomi-backend
 
+# CHECK OUT DEPLOYED BUILD AT https://nomie.elliottf.dk/  
+
 Backend for the Nomi(e) app
 
 [Frontend Repository (Lovable)](https://github.com/Ell1ott/nomie-voyage-palette-15345)

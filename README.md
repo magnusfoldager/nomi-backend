@@ -2,6 +2,8 @@
 
 Backend for the Nomi(e) app
 
+[Frontend Repository (Lovable)](https://github.com/Ell1ott/nomie-voyage-palette-15345)
+
 Deployed on [Fly](https://nomi-backend.fly.dev/) for demo purposes.
 
 ## Quick start (local)

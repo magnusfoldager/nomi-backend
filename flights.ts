@@ -38,15 +38,15 @@ async function checkForFlights() {
 
   if (response.output_parsed.foundFlights && response.output_parsed.flight) {
     db.update((db) => {
-      db.dbTemplate.foundFlights = true;
-      db.dbTemplate.flight = response.output_parsed!.flight ?? null;
+      db.foundFlights = true;
+      db.flight = response.output_parsed!.flight ?? null;
       return db;
     });
     return true;
   } else {
     db.update((db) => {
-      db.dbTemplate.foundFlights = false;
-      db.dbTemplate.flight = null;
+      db.foundFlights = false;
+      db.flight = null;
       return db;
     });
     return false;

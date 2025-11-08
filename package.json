@@ -20,8 +20,10 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "lowdb": "^7.0.1",
+    "node-cron": "^4.2.1",
     "openai": "^6.8.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
   }
 }

@@ -1,3 +1,4 @@
+import { db } from "./db.ts";
 import getTravelerState from "./travelerState.ts"
 
 const recommendationTypes = ['food', 'attraction', 'hotel']
@@ -11,9 +12,10 @@ interface Recommendation {
 }
 
 export default function getRecommendations() : Recommendation[] {
-    return [
-        { id: 1, title: 'Recommendation 1', type: 'food' },
-        { id: 2, title: 'Recommendation 2', type: 'attraction' },
-        { id: 3, title: 'Recommendation 3', type: 'hotel' }
-    ]
+
+    const data = db.read()
+
+    const recommendations = db.data.recommendations;
+
+    return recommendations;
 }

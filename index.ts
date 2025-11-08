@@ -1,7 +1,10 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 
 const app = express()
 const port = 3000
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 import getRecommendations from './recommendations.ts'
 
@@ -13,6 +16,41 @@ app.get('/recommendations', (req: any, res: { json: (arg0: { id: number; title: 
   const recommendations = getRecommendations()
   res.json(recommendations)
 })
+
+interface UpdateParametersBody {
+    time: string; // Time
+    location: string; // Location "lat,long"
+}
+
+app.post('/update-server-parameters', (req: Request<{}, {}, UpdateParametersBody>, res: Response) => {
+    try {
+        // Destructure the data from the request body
+        const { time, location } = req.body;
+
+        // Optional: Parse the combined lat/long string from the select dropdown
+        if (time && location.includes(',')) {
+            const [latitude, longitude] = location.split(',').map((coord: string) => parseFloat(coord.trim()));
+            console.log(`Parsed -> Lat: ${latitude}, Long: ${longitude}`);
+
+            // Validate parsed numbers
+            if (isNaN(latitude) || isNaN(longitude)) {
+                 res.status(400).send('Invalid location format received.');
+                 return;
+            }
+            
+            // TODO: Implement updating DB
+        }
+
+        // Send a success response to the browser
+        res.send('Parameters updated successfully!');
+        // Alternatively, redirect back to the form page:
+        // res.redirect('/'); 
+
+    } catch (error) {
+        console.error('Error processing request:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 app.listen(port, () => {
   console.log(`Nomi Backend listening on ${port}`)

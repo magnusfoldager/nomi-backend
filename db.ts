@@ -10,4 +10,4 @@ const dbTemplate = {
 
 export type DbType = typeof dbTemplate
 
-export const db = await JSONFilePreset('db.json', { dbTemplate })
+export const db = await JSONFilePreset('db.json', { ...dbTemplate })

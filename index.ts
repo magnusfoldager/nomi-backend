@@ -10,9 +10,10 @@ app.use(express.json());
 
 import getRecommendations from "./recommendations.js";
 import cron from "node-cron";
-import checkForFlights from "./flights.js";
-import checkForHotels from "./hotels.js";
-import { updateUserString } from "./userInput.js";
+import checkForFlights from "./flights.ts";
+import checkForHotels from "./hotels.ts";
+import { updateUserString } from "./userInput.ts";
+import { generateRecommendations } from "./generateRecommendations.ts";
 
 cron.schedule("* * * * *", () => {
   checkForFlights()
@@ -103,7 +104,15 @@ app.post(
           return;
         }
 
-        // TODO: Implement updating DB
+        // Generate recommendations asynchronously
+        console.log("Starting recommendation generation...");
+        generateRecommendations(latitude, longitude, time)
+          .then((result) => {
+            console.log("Recommendations generated successfully:", result);
+          })
+          .catch((error) => {
+            console.error("Error generating recommendations:", error);
+          });
       }
 
       // Send a success response to the browser

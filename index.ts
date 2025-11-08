@@ -105,11 +105,14 @@ app.post(
         }
 
         // Generate recommendations asynchronously
+        console.log("Starting recommendation generation...");
         generateRecommendations(latitude, longitude, time)
-          .then(() => console.log("Recommendations generated"))
-          .catch((error) =>
-            console.error("Error generating recommendations:", error)
-          );
+          .then((result) => {
+            console.log("Recommendations generated successfully:", result);
+          })
+          .catch((error) => {
+            console.error("Error generating recommendations:", error);
+          });
       }
 
       // Send a success response to the browser

@@ -31,17 +31,25 @@ async function fetchWeather(
   longitude: number
 ): Promise<string> {
   const apiKey = process.env.OPENWEATHER_API_KEY;
+  console.log(`[fetchWeather] API Key present: ${!!apiKey}`);
+
   if (!apiKey) {
+    console.warn("[fetchWeather] No API key found in environment");
     return "Weather data unavailable";
   }
 
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  console.log(`[fetchWeather] Fetching from URL: ${url.replace(apiKey, 'HIDDEN')}`);
+
   try {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
-    );
+    const response = await fetch(url);
     const data = await response.json();
 
+    console.log(`[fetchWeather] Response status: ${response.status}`);
+    console.log(`[fetchWeather] Response data:`, data);
+
     if (!response.ok) {
+      console.error(`[fetchWeather] API error: ${data.message || 'Unknown error'}`);
       return "Weather data unavailable";
     }
 
@@ -50,9 +58,11 @@ async function fetchWeather(
     const description = data.weather[0].description;
     const humidity = data.main.humidity;
 
-    return `${temp}°C (feels like ${feelsLike}°C), ${description}, humidity ${humidity}%`;
+    const weatherString = `${temp}°C (feels like ${feelsLike}°C), ${description}, humidity ${humidity}%`;
+    console.log(`[fetchWeather] Successfully fetched weather: ${weatherString}`);
+    return weatherString;
   } catch (error) {
-    console.error("Error fetching weather:", error);
+    console.error("[fetchWeather] Error fetching weather:", error);
     return "Weather data unavailable";
   }
 }
@@ -62,9 +72,12 @@ export async function generateRecommendations(
   longitude: number,
   time: string
 ): Promise<RecommendationsResponse> {
+  console.log(`[generateRecommendations] Called with lat=${latitude}, lon=${longitude}, time=${time}`);
   const timeOfDay = getTimeOfDay(time);
   const travelerState = db.data.travelerState;
+  console.log(`[generateRecommendations] Fetching weather...`);
   const weather = await fetchWeather(latitude, longitude);
+  console.log(`[generateRecommendations] Weather: ${weather}`);
 
   const prompt = `Generate 5 personalized recommendations for a traveler at location ${latitude}, ${longitude} during ${timeOfDay}.
 
@@ -84,19 +97,24 @@ Consider the weather: if rainy, suggest indoor activities; if sunny, include out
 
 For each recommendation, search the web to find an appropriate image URL that represents the place or activity.`;
 
+  console.log(`[generateRecommendations] Calling OpenAI API...`);
   const response = await client.responses.parse({
-    model: "gpt-4o",
-    instructions: "Generate location-specific travel recommendations.",
-    tools: [ACI_MCP],
+    model: "gpt-5",
+    instructions: "Generate location-specific travel recommendations. Use web search to find image URLs for each recommendation.",
+    tools: [ACI_MCP, { type: "web_search"}],
     input: prompt,
+
     text: {
       format: zodTextFormat(RecommendationsResponseSchema, "recommendations"),
     },
   });
 
   if (!response.output_parsed) {
+    console.error("[generateRecommendations] Failed to parse response");
     throw new Error("Failed to generate recommendations");
   }
+
+  console.log(`[generateRecommendations] Got ${response.output_parsed.recommendations.length} recommendations`);
 
   // Update database
   db.update((data) => {
@@ -104,9 +122,12 @@ For each recommendation, search the web to find an appropriate image URL that re
       (rec: z.infer<typeof RecommendationSchema>, index: number) => ({
         id: index + 1,
         title: rec.title,
+        description: rec.description,
         type: rec.category,
+        imageUrl: rec.imageUrl,
       })
     );
+    console.log(`[generateRecommendations] Updated DB with ${data.recommendations.length} recommendations`);
     return data;
   });
 

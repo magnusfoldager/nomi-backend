@@ -8,7 +8,13 @@ const defaultTravelerState = getDefaultTravelerState();
 
 const dbTemplate = {
   travelerState: defaultTravelerState,
-  recommendations: [] as { id: number; title: string; type: string }[],
+  recommendations: [] as {
+    id: number;
+    title: string;
+    description: string;
+    type: string;
+    imageUrl: string;
+  }[],
   userInputString: "",
   foundFlights: false,
   foundHotels: false,

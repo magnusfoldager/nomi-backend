@@ -2,7 +2,6 @@ import express, { type Request, type Response } from "express";
 import cors from "cors";
 import { db } from "./db.js";
 import "dotenv/config";
-import cors from "cors";
 
 const app = express();
 const port = 3000;

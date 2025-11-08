@@ -1,21 +1,20 @@
 import { db } from "./db.ts";
-import getTravelerState from "./travelerState.ts"
+import getTravelerState from "./travelerState.ts";
 
-const recommendationTypes = ['food', 'attraction', 'hotel']
+const recommendationTypes = ["food", "attraction", "hotel"];
 
-export type RecommendationType = typeof recommendationTypes[number];
+export type RecommendationType = (typeof recommendationTypes)[number];
 
 interface Recommendation {
-    id: number;
-    title: string;
-    type: RecommendationType;
+  id: number;
+  title: string;
+  type: RecommendationType;
 }
 
-export default function getRecommendations() : Recommendation[] {
+export default function getRecommendations(): Recommendation[] {
+  const data = db.read();
 
-    const data = db.read()
+  const recommendations = db.data.recommendations;
 
-    const recommendations = db.data.recommendations;
-
-    return recommendations;
+  return recommendations;
 }

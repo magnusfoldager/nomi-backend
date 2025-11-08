@@ -56,7 +56,7 @@ export interface TravelerDailyState {
    * 1.0: Completely open to spontaneous changes.
    */
   spontaneity: number;
-  
+
   /** * Current level of patience for delays, crowds, or problems.
    * 0.0: No patience, easily frustrated.
    * 1.0: Very patient and tolerant.
@@ -116,6 +116,6 @@ export function getDefaultTravelerState(): TravelerDailyState {
     spendingWillingness: 0.5,
     safetyFeeling: 0.5,
     spontaneity: 0.5,
-    patience: 0.5
+    patience: 0.5,
   };
 }

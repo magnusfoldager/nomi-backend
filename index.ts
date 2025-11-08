@@ -13,6 +13,7 @@ import getRecommendations from "./recommendations.ts";
 import cron from "node-cron";
 import checkForFlights from "./flights.ts";
 import checkForHotels from "./hotels.ts";
+import { db } from "./db.ts";
 
 cron.schedule("* * * * *", () => {
   checkForFlights().then((found) => {
@@ -40,6 +41,19 @@ app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
 app.get('/recommendations', (req: any, res: { json: (arg0: { id: number; title: string; type: string }[]) => void }) => {
   const recommendations = getRecommendations()
   res.json(recommendations)
+})
+
+app.get('/flights', (req: Request, res: Response) => {
+  try {
+    const flightsData = {
+      foundFlights: db.data.foundFlights,
+      flight: db.data.flight
+    };
+    res.json(flightsData);
+  } catch (error) {
+    console.error('Error fetching flights:', error);
+    res.status(500).json({ error: 'Failed to fetch flights' });
+  }
 })
 
 interface UpdateParametersBody {

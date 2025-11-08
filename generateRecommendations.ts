@@ -126,6 +126,7 @@ For each recommendation, search the web to find an appropriate image URL that re
         description: rec.description,
         type: rec.category,
         imageUrl: rec.imageUrl,
+        location: rec.location,
       })
     );
     console.log(`[generateRecommendations] Updated DB with ${data.recommendations.length} recommendations`);

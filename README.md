@@ -2,7 +2,7 @@
 
 Backend for the Nomi(e) app
 
-Deployed on https://nomi-backend.fly.dev/ for demo purposes.
+Deployed on [Fly](https://nomi-backend.fly.dev/) for demo purposes.
 
 ## Quick start (local)
 1. Clone repository
@@ -22,10 +22,10 @@ Deployed on https://nomi-backend.fly.dev/ for demo purposes.
     npm install
     ```
 
-Follow the "Environment variables" and "Production Build" sections.
+Follow the "[Environment variables](#environment-variables-env-example)" and "[Production Build](#production-build)" sections.
 
 ## Environment variables (.env example)
-Refer to the .env.example file:
+Refer to the [.env.example](.env.example) file:
 ```
 OPENAI_API_KEY=
 ACI_MCP_URL=

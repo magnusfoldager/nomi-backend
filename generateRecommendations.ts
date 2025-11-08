@@ -8,6 +8,7 @@ const RecommendationSchema = z.object({
   description: z.string(),
   category: z.enum(["dining", "attraction", "entertainment", "other"]),
   imageUrl: z.string().describe("URL of an image representing this recommendation"),
+  location: z.string().describe("Address or location name of this recommendation"),
 });
 
 const RecommendationsResponseSchema = z.object({
@@ -125,6 +126,7 @@ For each recommendation, search the web to find an appropriate image URL that re
         description: rec.description,
         type: rec.category,
         imageUrl: rec.imageUrl,
+        location: rec.location,
       })
     );
     console.log(`[generateRecommendations] Updated DB with ${data.recommendations.length} recommendations`);

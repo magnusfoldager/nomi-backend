@@ -14,6 +14,7 @@ const dbTemplate = {
     description: string;
     type: string;
     imageUrl: string;
+    location: string;
   }[],
   userInputString: "",
   foundFlights: false,
